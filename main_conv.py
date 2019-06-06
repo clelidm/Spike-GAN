@@ -118,18 +118,25 @@ def main(_):
           '_num_layers_' + str(FLAGS.num_layers)  + '_num_features_' + str(FLAGS.num_features) + '_kernel_' + str(FLAGS.kernel_width) +\
           '_iteration_' + FLAGS.iteration + '/'
   elif FLAGS.dataset=='retina':
-     if FLAGS.architecture=='fc':
+    if FLAGS.architecture=='fc':
           FLAGS.sample_dir = 'samples fc/' + 'dataset_' + FLAGS.dataset  +\
           '_num_neurons_' + str(FLAGS.num_neurons) + '_num_bins_' + str(FLAGS.num_bins)\
           + '_critic_iters_' + str(FLAGS.critic_iters) + '_lambda_' + str(FLAGS.lambd) +\
           '_num_units_' + str(FLAGS.num_units) +\
           '_iteration_' + FLAGS.iteration + '/'
-     elif FLAGS.architecture=='conv':
-          FLAGS.sample_dir = 'samples conv/' + 'dataset_' + FLAGS.dataset + '_num_samples_' + str(FLAGS.num_samples) +\
-          '_num_neurons_' + str(FLAGS.num_neurons) + '_num_bins_' + str(FLAGS.num_bins)\
-          + '_critic_iters_' + str(FLAGS.critic_iters) + '_lambda_' + str(FLAGS.lambd) +\
-          '_num_layers_' + str(FLAGS.num_layers)  + '_num_features_' + str(FLAGS.num_features) + '_kernel_' + str(FLAGS.kernel_width) +\
-          '_iteration_' + FLAGS.iteration + '/'
+    elif FLAGS.architecture=='conv':
+      FLAGS.sample_dir = 'samples conv/' + 'dataset_' + FLAGS.dataset + '_num_samples_' + str(FLAGS.num_samples) +\
+                         '_num_neurons_' + str(FLAGS.num_neurons) + '_num_bins_' + str(FLAGS.num_bins)\
+                         + '_critic_iters_' + str(FLAGS.critic_iters) + '_lambda_' + str(FLAGS.lambd) +\
+                         '_num_layers_' + str(FLAGS.num_layers)  + '_num_features_' + str(FLAGS.num_features) + '_kernel_' + str(FLAGS.kernel_width) +\
+                         '_iteration_' + FLAGS.iteration + '/'
+  elif FLAGS.dataset=='maxent':
+    if FLAGS.architecture=='fc':
+      FLAGS.sample_dir =  'samples fc/' + 'dataset_' + FLAGS.dataset + '_num_samples_' + str(FLAGS.num_samples) +\
+                          '_num_neurons_' + str(FLAGS.num_neurons) + '_num_bins_' + str(FLAGS.num_bins)\
+                          + '_critic_iters_' + str(FLAGS.critic_iters) + '_lambda_' + str(FLAGS.lambd) +\
+                          '_num_layers_' + str(FLAGS.num_layers)  + '_num_units_' + str(FLAGS.num_units) +\
+                          '_iteration_' + FLAGS.iteration + '/'
       
   FLAGS.checkpoint_dir = FLAGS.sample_dir + 'checkpoint/'
   if not os.path.exists(FLAGS.checkpoint_dir):
@@ -184,7 +191,8 @@ def main(_):
     #GET GENERATED SAMPLES AND COMPUTE THEIR STATISTICS
     print('compute stats -----------------------------------')
     if 'samples' not in original_dataset:
-        real_samples = retinal_data.get_samples(num_bins=FLAGS.num_bins, num_neurons=FLAGS.num_neurons, instance=FLAGS.data_instance, folder=os.getcwd()+'/data/retinal data/')
+      # only needed for retina - for other datasets, samples are saved inside stats file
+      real_samples = retinal_data.get_samples(num_bins=FLAGS.num_bins, num_neurons=FLAGS.num_neurons, instance=FLAGS.data_instance, folder=os.getcwd()+'/data/retinal data/')
     else:
         real_samples = original_dataset['samples']
     sim_pop_activity.plot_samples(real_samples, FLAGS.num_neurons, FLAGS.sample_dir, 'real')

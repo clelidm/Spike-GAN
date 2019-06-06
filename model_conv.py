@@ -122,7 +122,7 @@ class WGAN_conv(object):
             variable_parameters *= dim.value
         total_parameters += variable_parameters
     print('-------------')
-    print('number of varaibles: ' + str(total_parameters))
+    print('number of variables: ' + str(total_parameters))
     print('-------------')
     #start training
     counter_batch = 0
@@ -325,12 +325,18 @@ class WGAN_conv(object):
   #################fully connected GAN  
     
   # Discriminator
-  def FCDiscriminator(self,inputs, n_layers=3):
+  def FCDiscriminator(self, inputs, print_arch=True):
     output = act_funct.LeakyReLULayer('Discriminator.Input', self.output_dim, self.num_units, inputs)
-    for i in range(n_layers):
+    if print_arch:
+        print('DISCRIMINATOR. -------------------------------')
+        print(str(output.get_shape())+' input')
+    for i in range(self.num_layers):
         output = act_funct.LeakyReLULayer('Discriminator.{}'.format(i), self.num_units, self.num_units, output)
+        if print_arch:
+          print(str(output.get_shape()) + ' layer '+ str(i))
     output = linear.Linear('Discriminator.Out', self.num_units, 1, output)
-
+    if print_arch:
+        print(str(output.get_shape()) + ' output')
     return tf.reshape(output, [-1])
     
   # Discriminator
@@ -345,14 +351,22 @@ class WGAN_conv(object):
       return tf.reshape(output, [-1]), filters, outputs_mat
   
   # Generator
-  def FCGenerator(self, n_samples, noise=None):
+  def FCGenerator(self, n_samples, noise=None, print_arch=True):
     if noise is None:
         noise = tf.random_normal([n_samples, 128])
-    output = act_funct.ReLULayer('Generator.1', 128, self.num_units, noise)
-    output = act_funct.ReLULayer('Generator.2', self.num_units, self.num_units, output)
-    output = act_funct.ReLULayer('Generator.3', self.num_units, self.num_units, output)
-    output = act_funct.ReLULayer('Generator.4', self.num_units, self.num_units, output)
+    if print_arch:
+        print('GENERATOR. -------------------------------')
+        print(str(noise.get_shape())+' latent variable')
+    output = act_funct.ReLULayer('Generator.Input', 128, self.num_units, noise)
+    if print_arch:
+          print(str(output.get_shape()) + ' linear projection')
+    for i in range(self.num_layers):
+      output = act_funct.LeakyReLULayer('Generator.{}'.format(i), self.num_units, self.num_units, output)
+      if print_arch:
+        print(str(output.get_shape()) + ' layer '+ str(i))
     output = linear.Linear('Generator.Out', self.num_units, self.output_dim, output)
+    if print_arch:
+        print(str(output.get_shape()) + ' output')    
     
     output = tf.nn.sigmoid(output)
     

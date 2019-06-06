@@ -9,7 +9,7 @@ Created on Thu Oct 19 11:44:19 2017
 
 import os
 import numpy as np
-from tflib import sim_pop_activity, retinal_data, analysis
+from tflib import sim_pop_activity, retinal_data, maxent_data, analysis
 
 
 def generate_spike_trains(config, recovery_dir):
@@ -73,6 +73,20 @@ def generate_spike_trains(config, recovery_dir):
         #save original statistics
         analysis.get_stats(X=real_samples, num_neurons=config.num_neurons, num_bins=config.num_bins, folder=config.sample_dir, name='real',instance=config.data_instance)
         dev_samples = []
+
+
+    elif config.dataset=='maxent':
+        real_samples = maxent_data.get_samples(filename=os.path.join('..', 'data', 'maxent', 'parent.txt'))
+        dev_samples = []
+
+        #save original statistics
+        analysis.get_stats(X=real_samples,
+                           num_neurons=config.num_neurons,
+                           num_bins=config.num_bins,
+                           folder=config.sample_dir,
+                           name='real')
+
+        
     return real_samples, dev_samples
 
 

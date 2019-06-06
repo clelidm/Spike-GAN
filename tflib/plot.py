@@ -31,7 +31,7 @@ def flush(folder):
 		plt.plot(x_vals, y_vals)
 		plt.xlabel('iteration')
 		plt.ylabel(name)
-		plt.savefig(folder+name.replace(' ', '_')+'.jpg')
+		plt.savefig(folder+name.replace(' ', '_')+'.png')
 
 	print("iter {}\t{}".format(_iter[0], "\t".join(prints)))
 	_since_last_flush.clear()
