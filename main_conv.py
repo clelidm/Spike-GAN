@@ -24,7 +24,7 @@ Created on Thu Feb 23 11:27:20 2017
 import os
 import pprint
 from model_conv import WGAN_conv
-from tflib import analysis, retinal_data, visualize_filters_and_units, data_provider, sim_pop_activity
+from tflib import analysis, retinal_data, visualize_filters_and_units, data_provider, sim_pop_activity, maxent_data
 import numpy as np
 #from utils import pp, get_samples_autocorrelogram, get_samples
 
@@ -177,7 +177,7 @@ def main(_):
     original_dataset = np.load(FLAGS.sample_dir+ '/stats_real.npz')
     
     #PLOT FILTERS
-    if FLAGS.dataset=='retina':
+    if FLAGS.dataset in ['retina', 'maxent']:
         index = np.arange(FLAGS.num_neurons)
     else:
         index = np.argsort(original_dataset['shuffled_index'])
@@ -191,8 +191,11 @@ def main(_):
     #GET GENERATED SAMPLES AND COMPUTE THEIR STATISTICS
     print('compute stats -----------------------------------')
     if 'samples' not in original_dataset:
-      # only needed for retina - for other datasets, samples are saved inside stats file
-      real_samples = retinal_data.get_samples(num_bins=FLAGS.num_bins, num_neurons=FLAGS.num_neurons, instance=FLAGS.data_instance, folder=os.getcwd()+'/data/retinal data/')
+      if FLAGS.dataset=='retina':
+        real_samples = retinal_data.get_samples(num_bins=FLAGS.num_bins, num_neurons=FLAGS.num_neurons, instance=FLAGS.data_instance, folder=os.getcwd()+'/data/retinal data/')
+      elif FLAGS.dataset=='maxent':
+        real_samples = maxent_data.get_samples()
+        
     else:
         real_samples = original_dataset['samples']
     sim_pop_activity.plot_samples(real_samples, FLAGS.num_neurons, FLAGS.sample_dir, 'real')
