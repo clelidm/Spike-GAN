@@ -21,5 +21,6 @@ FNULL = open(os.devnull, 'w')
 for s in tqdm(range(n_sample_sets)):
     subprocess.run("python main_conv.py --architecture='fc' --dataset='maxent' --num_bins=1 --num_neurons={}  --num_samples={}".format(num_neurons, small_sample_size), stdout=FNULL, stderr=FNULL, shell=True, check=True)
     with np.load(os.path.join(out_dir, 'samples_fake.npz')) as data:
-        sample[s*small_sample_size:(s+1)*small_sample_size,:] = data['samples'].T
+        binarized = (data['samples'] > np.random.random(data['samples'].shape)).astype(np.int)
+    sample[s*small_sample_size:(s+1)*small_sample_size,:] = binarized.T
 np.savetxt(os.path.join(out_dir, 'sample_{}.txt'.format(sample_size)), sample, fmt='%d')
