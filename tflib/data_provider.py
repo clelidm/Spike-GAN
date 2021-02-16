@@ -76,7 +76,7 @@ def generate_spike_trains(config, recovery_dir):
 
 
     elif config.dataset=='maxent':
-        real_samples = maxent_data.get_samples(filename=os.path.join('..', 'data', 'maxent', 'parent.txt'))
+        real_samples = maxent_data.get_samples(filename=os.path.join('data', 'maxent', 'parent.txt'))
         dev_samples = []
 
         #save original statistics

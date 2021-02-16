@@ -9,7 +9,10 @@ Created on Sat Sep 30 11:17:31 2017
 from __future__ import division
 import os
 import time
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
+#tf.config.set_visible_devices([], 'GPU')
+tf.disable_v2_behavior()
+#import tensorflow as tf
 import numpy as np
 import matplotlib
 matplotlib.use('Agg')

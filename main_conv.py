@@ -29,7 +29,10 @@ import numpy as np
 #from utils import pp, get_samples_autocorrelogram, get_samples
 
 
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.config.set_visible_devices([], 'GPU')
+tf.disable_v2_behavior()
+#import tensorflow as tf
 #parameters used for (some) figures
 
 flags = tf.app.flags
@@ -163,7 +166,7 @@ def main(_):
         sample_dir=FLAGS.sample_dir)
     
     
-    if FLAGS.is_train:  
+    if FLAGS.is_train:
         training_samples, dev_samples = data_provider.generate_spike_trains(FLAGS, FLAGS.recovery_dir)
         wgan.training_samples = training_samples
         wgan.dev_samples = dev_samples
