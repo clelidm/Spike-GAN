@@ -51,7 +51,8 @@ class WGAN_conv(object):
   def __init__(self, sess, batch_size=64, lambd=10, stride=2, architecture = 'conv', num_units=512,
                num_neurons=4, z_dim=128, num_bins=32, num_layers=4, kernel_width=4, num_features=4,
                checkpoint_dir=None,
-               sample_dir=None):  
+               sample_dir=None,
+               num_samples_for_diagnostics=None):  
     self.architecture = architecture #fully connected (fc) or convolutional (conv)
     self.num_units = num_units
     self.stride = stride
@@ -68,6 +69,7 @@ class WGAN_conv(object):
     #folders
     self.checkpoint_dir = checkpoint_dir
     self.sample_dir = sample_dir
+    self.num_samples_for_diagnostics = self.num_samples_for_diagnostics
     
     self.build_model()
 
@@ -78,7 +80,8 @@ class WGAN_conv(object):
     self.inputs = tf.placeholder(tf.float32, name='real_data', shape=[self.batch_size, self.num_neurons*self.num_bins])
     #fake samples
     self.sample_inputs = self.Generator(self.batch_size,print_arch=True)
-    self.ex_samples = self.get_samples()
+    # graph node that corresponds to the synthetic samples that will be used for diagnostics
+    self.ex_samples = self.get_samples(num_samples=self.num_samples_for_diagnostics)
     
     #discriminator output
     self.disc_real = self.Discriminator(self.inputs,print_arch=True)
