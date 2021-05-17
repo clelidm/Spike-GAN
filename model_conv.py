@@ -52,7 +52,7 @@ class WGAN_conv(object):
                num_neurons=4, z_dim=128, num_bins=32, num_layers=4, kernel_width=4, num_features=4,
                checkpoint_dir=None,
                sample_dir=None,
-               num_samples_for_diagnostics=None):  
+               num_samples_for_diagnostics=2**13):
     self.architecture = architecture #fully connected (fc) or convolutional (conv)
     self.num_units = num_units
     self.stride = stride
