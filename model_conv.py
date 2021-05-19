@@ -69,7 +69,7 @@ class WGAN_conv(object):
     #folders
     self.checkpoint_dir = checkpoint_dir
     self.sample_dir = sample_dir
-    self.num_samples_for_diagnostics = self.num_samples_for_diagnostics
+    self.num_samples_for_diagnostics = num_samples_for_diagnostics
     
     self.build_model()
 
