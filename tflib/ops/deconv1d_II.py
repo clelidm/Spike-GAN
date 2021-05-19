@@ -17,7 +17,8 @@ Created on Sun Oct  1 18:12:26 2017
 import tflib as lib
 
 import numpy as np
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 
 _default_weightnorm = False
 def enable_default_weightnorm():

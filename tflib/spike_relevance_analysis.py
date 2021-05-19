@@ -5,7 +5,8 @@ Created on Sat Oct 14 10:13:25 2017
 
 @author: manuel
 """
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 import pprint
 import os
 import time

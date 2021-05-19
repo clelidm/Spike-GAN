@@ -16,7 +16,9 @@ Created on Sun Oct  1 15:56:13 2017
 
 import tflib as lib
 import numpy as np
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
+
 
 _weights_stdev = None
 def set_weights_stdev(weights_stdev):

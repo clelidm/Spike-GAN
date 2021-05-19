@@ -22,18 +22,20 @@ Created on Thu Feb 23 11:27:20 2017
 """
 
 import os
+# uncomment the following line (or set the environmental variable
+# CUDA_VISIBLE_DEVICES to an empty string when calling the script) to
+# force TensorFlow to ignore GPUs
+#
+#os.environ["CUDA_VISIBLE_DEVICES"] = ""
 import pprint
 from model_conv import WGAN_conv
-from tflib import analysis, retinal_data, visualize_filters_and_units, data_provider, sim_pop_activity, maxent_data
 import numpy as np
-#from utils import pp, get_samples_autocorrelogram, get_samples
-
 
 import tensorflow.compat.v1 as tf
-tf.config.set_visible_devices([], 'GPU')
 tf.disable_v2_behavior()
-#import tensorflow as tf
-#parameters used for (some) figures
+
+from tflib import analysis, retinal_data, visualize_filters_and_units, data_provider, sim_pop_activity, maxent_data
+
 
 flags = tf.app.flags
 flags.DEFINE_string("architecture", "conv", "semi-conv (conv) or fully connected (fc)")

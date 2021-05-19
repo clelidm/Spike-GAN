@@ -4,7 +4,9 @@ Created on Thu Sep 14 09:30:39 2017
 
 @author: manuel
 """
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
+
 from tflib.ops import linear
 import time
 import numpy as np
