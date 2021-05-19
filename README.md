@@ -50,19 +50,21 @@ python3.5 main_conv.py --is_train --architecture='conv' --dataset='uniform' --nu
 ```
 
 ### Maxent data
-In this example we train a fully-connected architecture on the toy maxent
-dataset (which contains 12 neurons). The fully connected network has two hidden layers with 256
-units each. The number of synthetic samples generated every time we
-compute diagnostics (such as when we pause training and monitor its
-advancement, or at the end of training) is 1000, controlled by
-`--num_samples`. Training will be run for 100000 iterations
-(controlled by `--num_iter`) and the arbitrary name `my_example` will
-be assigned to this training run. Note that if you are not planning on
-training the network from scratch multiple times with the same
-settings there is no reason to specify `--iteration` and you can leave
-it out!
+In this example we train a fully-connected architecture on the toy
+maxent dataset (which contains 12 neurons). The fully connected
+network has two hidden layers with 256 units each. The number of
+synthetic samples generated every time we compute diagnostics (such as
+when we pause training and monitor its advancement, or at the end of
+training) is 1000, controlled by `--num_samples`. Training will be run
+for 100000 iterations (controlled by `--num_iter`). The arbitrary name
+`training_run_name`, controlled by `--iteration` will be added to the
+data folder name for that training run, which could be useful if you
+are planning to train the network from scratch multiple times with the
+same settings. Typically the `--iteration` flag is not needed, and can
+be safely left out.
+
 ```
-python main_conv.py --is_train --architecture='fc' --dataset='maxent' --num_bins=1 --num_neurons=12 --num_layers=2 --num_units=256 --num_samples=1000 --num_iter=100000 --iteration='my_example'
+python main_conv.py --is_train --architecture='fc' --dataset='maxent' --num_bins=1 --num_neurons=12 --num_layers=2 --num_units=256 --num_samples=1000 --num_iter=100000 --iteration='training_run_name'
 ```
 
 
