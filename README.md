@@ -1,3 +1,7 @@
+This code is forked from epiasini/Spike-GAN. 
+It is developing on the maxent part, adapted for student's projects based on generalization of stationary binary data.
+
+
 # Spike-GAN
 
 Tensorflow implementation of Spike-GAN, which allows generating realistic patterns of neural activity whose statistics approximate a given traing dataset ([Molano-Mazon et al. 2018 ICRL2018](https://openreview.net/forum?id=r1VVsebAZ)). 
