@@ -1,5 +1,5 @@
-This code is forked from epiasini/Spike-GAN. 
-It is developing on the maxent part, adapted for student's projects based on generalization of stationary binary data.
+Program forked from epiasini/Spike-GAN.
+This version is developing on the maxent part, and adapted for a project based on generalization of stationary binary data.
 
 
 # Spike-GAN
