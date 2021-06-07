@@ -188,7 +188,7 @@ def get_stats(X, num_neurons, num_bins, folder, name, firing_rate_mat=[],correla
                           'variance_error':variance_error, 'lag_corr_error':lag_corr_error}
             np.savez(folder + '/errors_'+name+'.npz', **errors_mat)
             samples_fake = {'samples':X}
-            np.savez(folder + '/samples_'+name[0:4]+'.npz', **samples_fake)
+            np.savez(folder + '/samples_'+name+'.npz', **samples_fake)
             return acf_error, mean_error, corr_error, time_course_error, k_probs_error
     
 
