@@ -59,7 +59,7 @@ flags.DEFINE_float("lambd", 10, "parameter gradient penalization")
 #parameter set specifiying data
 flags.DEFINE_string("sample_dir", "", "where the samples will be saved. This is automatically defined below, here I just initialize the field.")
 flags.DEFINE_string("dataset", "uniform", "type of neural activity. It can be simulated  or retina")
-flags.DEFINE_string("data_instance", "1", "if data==retina, this allows chosing the data instance")
+flags.DEFINE_string("data_instance", "1", "if data==retina, this allows chosing the data instance; if data==maxent, this allows you to define the input datafile")
 flags.DEFINE_integer("num_samples", 2**13, "number of samples used for various diagnostics")
 flags.DEFINE_integer("num_neurons", 4, "number of neurons in the population")
 flags.DEFINE_float("packet_prob", 0.05, "probability of packets")
